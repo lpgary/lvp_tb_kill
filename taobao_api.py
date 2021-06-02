@@ -31,3 +31,27 @@ def get_h5_sign():
     m.update(e.encode(encoding='utf-8'))
     h5_sign = m.hexdigest()
     return h5_sign
+
+def get_h5_link():
+    killtime = '2021-05-11 20:00:00'
+    _time_array = time.strptime(killtime, '%Y-%m-%d %H:%M:%S')
+    _t = int(time.mktime(_time_array)) * 1000 + 5
+    paras = {
+        "jsv": "2.6.1",
+        "appKey": "12574478",
+        "t": _t,
+        "sign": "9b3b4bb535efe6bef4aedbed0c92f53b",
+        "v": "1.0",
+        "type": "originaljsonp",
+        "dataType": "originaljsonp",
+        "timeout": "20000",
+        "LoginRequest": "true",
+        "H5Request": "true",
+        "api": "mtop.taobao.seattle.activitydetail.get",
+        "callback": "mtopjsonp3",
+        "data": '{"source":"activityDetail","activityId":"1021017961819530"}'
+    }#source 值如何确定有待研究，目前有观察到"activityDetail"和"memberPlatform2019
+    _paras_urlencode = urllib.parse.urlencode(paras)
+    h5_url = 'https://h5api.m.taobao.com/h5/mtop.taobao.seattle.activity.apply/1.0/?' + _paras_urlencode
+    return  h5_url
+
